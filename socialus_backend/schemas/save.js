@@ -1,7 +1,7 @@
 export default {
   name: 'save',
   title: 'Save',
-  type: 'documnet',
+  type: 'document',
   fields: [
     {
       name: 'postedBy',

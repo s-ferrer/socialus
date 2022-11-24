@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { FcGoogle } from 'react-icons/fc';
-import shareVideo from '../assets/black.mp4';
+import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
 // eslint-disable-next-line no-unused-vars
 import { gapi } from 'gapi-script';

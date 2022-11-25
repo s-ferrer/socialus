@@ -27,12 +27,12 @@ const Pin = ({ pin }) => {
   };
 
   let alreadySaved = pin?.save?.filter(
-    (item) => item?.postedBy?._id === user?.sub
+    (item) => item?.postedBy?._id === user?.googleId
   );
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
-  const {
+  /*const {
     uniqueNamesGenerator,
     adjectives,
     colors,
@@ -45,6 +45,7 @@ const Pin = ({ pin }) => {
     style: 'capital',
     separator: ' ',
   });
+*/
 
   const savePin = (id) => {
     if (alreadySaved?.length === 0) {
@@ -56,10 +57,10 @@ const Pin = ({ pin }) => {
         .insert('after', 'save[-1]', [
           {
             _key: uuidv4(),
-            userId: user?.sub,
+            userId: user?.googleId,
             postedBy: {
               _type: 'postedBy',
-              _ref: user?.sub,
+              _ref: user?.googleId,
             },
           },
         ])
@@ -166,8 +167,8 @@ const Pin = ({ pin }) => {
           alt='user-profile'
         />
         <p className='font-semibold capitalize'>
-          {shortName}
-          {/* {postedBy?.userName} */}
+          {/*{shortName}*/}
+          {postedBy?.userName}
         </p>
       </Link>
     </div>

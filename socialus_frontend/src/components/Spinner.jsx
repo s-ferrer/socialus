@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from 'react-loader-spinner';
+import * as Loader from 'react-loader-spinner';
 
 function Spinner({ message }) {
   return (

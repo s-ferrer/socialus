@@ -141,7 +141,7 @@ const Pin = ({ pin }) => {
                   {destination?.slice(8, 17)}...
                 </a>
               ) : undefined}
-              {postedBy?._id === user?.sub && (
+              {postedBy?._id === user?.googleId && (
                 <button
                   type='button'
                   onClick={(e) => {

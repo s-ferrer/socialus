@@ -15,18 +15,6 @@ const PinDetail = ({ user }) => {
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
 
-  /* const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
-
-  const shortName = uniqueNamesGenerator({
-    dictionaries: [adjectives, animals, colors], // colors can be omitted here as not used
-    length: 2,
-    style: 'capital',
-    separator: ' '
-  }); // big-donkey
-
-  const name = shortName;
-  */
-
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
 
@@ -120,9 +108,7 @@ const PinDetail = ({ user }) => {
                 className='w-10 h-10 rounded-full'
                 alt='user-profile'
               />
-              <p className='font-bold'>
-                {pinDetail?.postedBy.userName} {/*{name}*/}
-              </p>
+              <p className='font-bold'>{pinDetail?.postedBy.userName}</p>
             </Link>
             <h2 className='mt-5 text-2xl'>Comments</h2>
             <div className='max-h-370 overflow-y-auto'>

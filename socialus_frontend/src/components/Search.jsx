@@ -35,4 +35,5 @@ const Search = ({ searchTerm }) => {
     </div>
   );
 };
+
 export default Search;

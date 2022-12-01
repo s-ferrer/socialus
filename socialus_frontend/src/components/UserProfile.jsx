@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useParams, useNavigate } from 'react-router-dom';
-/*import { googleLogout } from '@react-oauth/google'; */
 import { GoogleLogout } from 'react-google-login';
 
 import {
@@ -18,13 +17,6 @@ const activeBtnStyles =
 const notActiveBtnStyles =
   'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
 
-/*const {
-  uniqueNamesGenerator,
-  adjectives,
-  colors,
-  animals,
-} = require('unique-names-generator');*/
-
 const UserProfile = () => {
   const [user, setUser] = useState();
   const [pins, setPins] = useState();
@@ -37,7 +29,7 @@ const UserProfile = () => {
     localStorage.getItem('user') !== 'undefined'
       ? JSON.parse(localStorage.getItem('user'))
       : localStorage.clear();
-  console.log(User);
+
   useEffect(() => {
     const query = userQuery(userId);
     client.fetch(query).then((data) => {
@@ -53,9 +45,9 @@ const UserProfile = () => {
         setPins(data);
       });
     } else {
-      const SavedPinsQuery = userSavedPinsQuery(userId);
+      const savedPinsQuery = userSavedPinsQuery(userId);
 
-      client.fetch(SavedPinsQuery).then((data) => {
+      client.fetch(savedPinsQuery).then((data) => {
         setPins(data);
       });
     }
@@ -66,6 +58,7 @@ const UserProfile = () => {
 
     navigate('/login');
   };
+
   if (!user) return <Spinner message='Loading profile' />;
 
   return (
@@ -86,10 +79,9 @@ const UserProfile = () => {
           </div>
           <h1 className='font-bold text-3xl text-center mt-3'>
             {user.userName}
-            {/*shortName*/}
           </h1>
           <div className='absolute top-0 z-1 right-0 p-2'>
-            {userId === User.sub && (
+            {userId === User.googleId && (
               <GoogleLogout
                 clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
                 render={(renderProps) => (

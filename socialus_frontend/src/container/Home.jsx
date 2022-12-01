@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, Route, Routes } from 'react-router-dom';
 
 import { Sidebar, UserProfile } from '../components';
-
 import { userQuery } from '../utils/data';
 import { client } from '../client';
 import Pins from './Pins';
 import logo from '../assets/logo.png';
+
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState();
@@ -18,14 +18,16 @@ const Home = () => {
     localStorage.getItem('user') !== 'undefined'
       ? JSON.parse(localStorage.getItem('user'))
       : localStorage.clear();
-
+  console.log(userInfo);
   useEffect(() => {
-    const query = userQuery(userInfo?.googleId);
+    const query = userQuery(userInfo?.sub);
+
     client.fetch(query).then((data) => {
       setUser(data[0]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);
   });
@@ -39,17 +41,20 @@ const Home = () => {
         <div className='p-2 w-full flex flex-row justify-between items-center shadow-md'>
           <HiMenu
             fontSize={40}
-            classname='cursor-pointer'
-            onClick={() => setToggleSidebar(false)}
+            className='cursor-pointer'
+            onClick={() => setToggleSidebar(true)}
           />
           <Link to='/'>
-            <img src={logo} alt='logo' classname='w-28' />
+            <img src={logo} alt='logo' className='w-28' />
           </Link>
           <Link to={`user-profile/${user?._id}`}>
-            <img src={user?.image} alt='logo' classname='w-28' />
+            <img
+              src={user?.image}
+              alt='user-pic'
+              className='w-9 h-9 rounded-full '
+            />
           </Link>
         </div>
-
         {toggleSidebar && (
           <div className='fixed w-4/5 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in'>
             <div className='absolute w-full flex justify-end items-center p-2'>
@@ -66,7 +71,7 @@ const Home = () => {
       <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
         <Routes>
           <Route path='/user-profile/:userId' element={<UserProfile />} />
-          <Route path='/*' elemnt={<Pins user={user && user} />} />
+          <Route path='/*' element={<Pins user={user && user} />} />
         </Routes>
       </div>
     </div>

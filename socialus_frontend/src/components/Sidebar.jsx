@@ -14,6 +14,7 @@ const Sidebar = ({ closeToggle, user }) => {
   const handleCloseSidebar = () => {
     if (closeToggle) closeToggle(false);
   };
+
   return (
     <div className='flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar'>
       <div className='flex flex-col'>
@@ -35,8 +36,8 @@ const Sidebar = ({ closeToggle, user }) => {
             <RiHomeFill />
             Home
           </NavLink>
-          <h3 className='mt-2 px-5 text-base 2x1:text-x1'>
-            Discover categories
+          <h3 className='mt-2 px-5 text-base 2xl:text-xl'>
+            Discover cateogries
           </h3>
           {categories.slice(0, categories.length - 1).map((category) => (
             <NavLink
@@ -49,8 +50,8 @@ const Sidebar = ({ closeToggle, user }) => {
             >
               <img
                 src={category.image}
+                className='w-8 h-8 rounded-full shadow-sm'
                 alt='category'
-                className='w-8 h-8 rouded-full shadow-sm'
               />
               {category.name}
             </NavLink>

@@ -10,7 +10,7 @@ const Feed = () => {
   const [pins, setPins] = useState();
   const [loading, setLoading] = useState(false);
   const { categoryId } = useParams();
-  //Dynamic search for new posts
+
   useEffect(() => {
     if (categoryId) {
       setLoading(true);
@@ -21,6 +21,7 @@ const Feed = () => {
       });
     } else {
       setLoading(true);
+
       client.fetch(feedQuery).then((data) => {
         setPins(data);
         setLoading(false);
@@ -33,13 +34,7 @@ const Feed = () => {
       <Spinner message={`We are adding ${ideaName} ideas to your feed!`} />
     );
   }
-
-  return (
-    <div>
-      {/* if pins exist in that case (&&()) => render smth */}
-      {pins && <MasonryLayout pins={pins} />}
-    </div>
-  );
+  return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 };
 
 export default Feed;

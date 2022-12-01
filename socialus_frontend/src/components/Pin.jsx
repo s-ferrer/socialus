@@ -32,21 +32,6 @@ const Pin = ({ pin }) => {
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
-  /*const {
-    uniqueNamesGenerator,
-    adjectives,
-    colors,
-    animals,
-  } = require('unique-names-generator');
-
-  const shortName = uniqueNamesGenerator({
-    dictionaries: [adjectives, animals, colors], // colors can be omitted here as not used
-    length: 2,
-    style: 'capital',
-    separator: ' ',
-  });
-*/
-
   const savePin = (id) => {
     if (alreadySaved?.length === 0) {
       setSavingPost(true);
@@ -78,7 +63,7 @@ const Pin = ({ pin }) => {
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
         onClick={() => navigate(`/pin-detail/${_id}`)}
-        className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
+        className=' relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
       >
         {image && (
           <img
@@ -100,9 +85,7 @@ const Pin = ({ pin }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
-                  className='bg-white w-9 h-9 p-2 rounded-full flex items-center
-                  justify-center text-dark text-xl opacity-75 hover:opacity-100
-                  hover:shadow-md outline-none'
+                  className='bg-white w-9 h-9 p-2 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
                 >
                   <MdDownloadForOffline />
                 </a>
@@ -127,8 +110,7 @@ const Pin = ({ pin }) => {
                 </button>
               )}
             </div>
-
-            <div className='flex justify-between items-center gap-2 w-full'>
+            <div className=' flex justify-between items-center gap-2 w-full'>
               {destination?.slice(8).length > 0 ? (
                 <a
                   href={destination}
@@ -166,10 +148,7 @@ const Pin = ({ pin }) => {
           src={postedBy?.image}
           alt='user-profile'
         />
-        <p className='font-semibold capitalize'>
-          {/*{shortName}*/}
-          {postedBy?.userName}
-        </p>
+        <p className='font-semibold capitalize'>{postedBy?.userName}</p>
       </Link>
     </div>
   );

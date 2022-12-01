@@ -1,44 +1,26 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
-//import { GoogleLogin } from 'react-google-login';
+import React from 'react';
+import GoogleLogin from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
 import { FcGoogle } from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
-// eslint-disable-next-line no-unused-vars
-import { gapi } from 'gapi-script';
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
+
 import { client } from '../client';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState([]);
-
-  const onSuccess = (res) => {
-    var decoded = jwt_decode(res.credential);
-    setProfile(decoded);
-    localStorage.setItem('user', JSON.stringify(decoded));
-    if (decoded.sub > 1) {
-      const doc = {
-        _type: 'user',
-        _id: profile.sub,
-        userName: profile.given_name,
-        image: profile.picture,
-        email: profile.email,
-        firstName: profile.given_name,
-        lastName: profile.family_name,
-      };
-      console.log(doc);
-      client.createOrReplace(doc).then(() => {
-        navigate('/', { replace: true });
-      });
-    }
-  };
-
-  const onFailure = (res) => {
-    console.log('Login Failed');
+  const responseGoogle = (response) => {
+    localStorage.setItem('user', JSON.stringify(response.profileObj));
+    const { name, googleId, imageUrl } = response.profileObj;
+    const doc = {
+      _id: googleId,
+      _type: 'user',
+      userName: name,
+      image: imageUrl,
+    };
+    client.createIfNotExists(doc).then(() => {
+      navigate('/', { replace: true });
+    });
   };
 
   return (
@@ -60,7 +42,22 @@ const Login = () => {
           </div>
 
           <div className='shadow-2xl'>
-            <GoogleLogin onSuccess={onSuccess} onFailure={onFailure} />;
+            <GoogleLogin
+              clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
+              render={(renderProps) => (
+                <button
+                  type='button'
+                  className='bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none'
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <FcGoogle className='mr-4' /> Sign in with google
+                </button>
+              )}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy='single_host_origin'
+            />
           </div>
         </div>
       </div>

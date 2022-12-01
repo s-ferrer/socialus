@@ -21,6 +21,7 @@ const CreatePin = ({ user }) => {
 
   const uploadImage = (e) => {
     const selectedFile = e.target.files[0];
+    // uploading asset to sanity
     if (
       selectedFile.type === 'image/png' ||
       selectedFile.type === 'image/svg' ||
@@ -69,7 +70,6 @@ const CreatePin = ({ user }) => {
         },
         category,
       };
-
       client.create(doc).then(() => {
         navigate('/');
       });
@@ -81,7 +81,6 @@ const CreatePin = ({ user }) => {
       }, 2000);
     }
   };
-
   return (
     <div className='flex flex-col justify-center items-center mt-5 lg:h-4/5'>
       {fields && (
@@ -135,7 +134,8 @@ const CreatePin = ({ user }) => {
             )}
           </div>
         </div>
-        <div className='flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w.full'>
+
+        <div className='flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full'>
           <input
             type='text'
             value={title}
@@ -144,7 +144,7 @@ const CreatePin = ({ user }) => {
             className='outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2'
           />
           {user && (
-            <div className='flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg'>
+            <div className='flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg '>
               <img
                 src={user.image}
                 className='w-10 h-10 rounded-full'
@@ -170,8 +170,8 @@ const CreatePin = ({ user }) => {
 
           <div className='flex flex-col'>
             <div>
-              <p className='mb-2 font-semibold text:lg sm:text-x1'>
-                choose Pin Category
+              <p className='mb-2 font-semibold text:lg sm:text-xl'>
+                Choose Pin Category
               </p>
               <select
                 onChange={(e) => {
